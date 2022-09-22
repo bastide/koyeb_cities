@@ -11,6 +11,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.AccessLevel;
 
 // Un exemple d'entité
 // On utilise Lombok pour auto-générer getter / setter / toString...
@@ -19,6 +20,7 @@ import lombok.ToString;
 @Entity // Une entité JPA
 public class City {
     @Id  @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    @Setter(AccessLevel.NONE) // On ne peut pas modifier l'id via setter
     private Integer id;
 
     @NonNull
