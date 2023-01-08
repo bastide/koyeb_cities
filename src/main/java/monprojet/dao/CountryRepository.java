@@ -26,9 +26,9 @@ public interface CountryRepository extends JpaRepository<Country, Integer> {
         for (City c : country.getCities()) {
             resultat += c.getPopulation();
         }
-        // Ou alors, en une seule ligne :
-        // resultat = country.getCities().stream().mapToInt(City::getPopulation).sum();
         return resultat;
+        // Ou alors, en une seule ligne :
+        // return country.getCities().stream().mapToInt(City::getPopulation).sum();
     }
 
     // JPQL : formulée sur le modèle conceptuel de données
@@ -41,12 +41,23 @@ public interface CountryRepository extends JpaRepository<Country, Integer> {
     int populationDuPaysSQL(int idDuPays);
 
     // JPQL : formulée sur le modèle conceptuel de données, la jointure est implicite
-    @Query("SELECT c.country.name AS countryName, SUM(c.population) AS populationTotale FROM City c GROUP BY countryName")
+    // Chaîne de caractères multi-ligne : on peut sauter des lignes et utiliser des espaces
+    // https://www.geeksforgeeks.org/text-blocks-in-java-15/
+    @Query("""
+        SELECT c.country.name AS countryName, SUM(c.population) AS populationTotale
+        FROM City c 
+        GROUP BY countryName
+        """)
     List<PopulationResult> populationParPaysJPQL();
 
     // SQL : formulée sur le modèle logique de données, il faut expliciter la jointure
-    @Query(value = "SELECT Country.name AS countryName, SUM(population) AS populationTotale FROM Country INNER JOIN City ON country_id = Country.id GROUP BY countryName", 
-    nativeQuery = true)
+    static final String POPULATION_PAR_PAYS_SQL = """
+        SELECT Country.name AS countryName, SUM(population) AS populationTotale 
+        FROM Country 
+        INNER JOIN City ON country_id = Country.id 
+        GROUP BY countryName
+        """;
+    @Query(value = POPULATION_PAR_PAYS_SQL, nativeQuery = true)
     List<PopulationResult> populationParPaysSQL();
 
 }
