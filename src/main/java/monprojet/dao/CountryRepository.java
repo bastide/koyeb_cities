@@ -36,7 +36,7 @@ public interface CountryRepository extends JpaRepository<Country, Integer> {
     int populationDuPaysJPQL(int idDuPays);
 
     // SQL : formulée sur le modèle logique de données, il faut connaître la clé étrangère
-    @Query(value = "SELECT SUM(c.population) FROM City c WHERE c.country_id = :idDuPays", 
+    @Query(value = "SELECT SUM(c.population) FROM City c WHERE c.country_id = :idDuPays",
     nativeQuery = true)
     int populationDuPaysSQL(int idDuPays);
 
