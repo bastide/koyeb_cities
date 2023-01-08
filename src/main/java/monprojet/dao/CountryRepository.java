@@ -13,7 +13,6 @@ import monprojet.entity.Country;
 //
 
 public interface CountryRepository extends JpaRepository<Country, Integer> {
-
     /**
      * Calculer la population totale d'un pays.
      * @param idDuPays l'identifiant du pays
