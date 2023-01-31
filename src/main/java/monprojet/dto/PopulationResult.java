@@ -8,5 +8,5 @@ package monprojet.dto;
  */
 public interface PopulationResult {
     String getCountryName();
-    int getPopulationTotale();
+    Integer getPopulationTotale();
 }

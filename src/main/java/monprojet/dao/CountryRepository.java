@@ -19,7 +19,7 @@ public interface CountryRepository extends JpaRepository<Country, Integer> {
      * @return sa population totale (en millions d'habitants)
      */
     // On peut mettre des "méthodes par défaut" dans les interfaces.
-    default int populationDuPaysJava(int idDuPays) {
+    default Integer populationDuPaysJava(int idDuPays) {
         int resultat = 0;
         Country country = findById(idDuPays).orElseThrow();
         for (City c : country.getCities()) {
@@ -32,28 +32,28 @@ public interface CountryRepository extends JpaRepository<Country, Integer> {
 
     // JPQL : formulée sur le modèle conceptuel de données
     @Query("SELECT SUM(c.population) FROM City c WHERE c.country.id = :idDuPays")
-    int populationDuPaysJPQL(int idDuPays);
+    Integer populationDuPaysJPQL(int idDuPays);
 
     // SQL : formulée sur le modèle logique de données, il faut connaître la clé étrangère
     @Query(value = "SELECT SUM(c.population) FROM City c WHERE c.country_id = :idDuPays",
     nativeQuery = true)
-    int populationDuPaysSQL(int idDuPays);
+    Integer populationDuPaysSQL(int idDuPays);
 
     // JPQL : formulée sur le modèle conceptuel de données, la jointure est implicite
     // Chaîne de caractères multi-ligne : on peut sauter des lignes et utiliser des espaces
     // https://www.geeksforgeeks.org/text-blocks-in-java-15/
     @Query("""
         SELECT c.country.name AS countryName, SUM(c.population) AS populationTotale
-        FROM City c 
+        FROM City c
         GROUP BY countryName
         """)
     List<PopulationResult> populationParPaysJPQL();
 
     // SQL : formulée sur le modèle logique de données, il faut expliciter la jointure
-    static final String POPULATION_PAR_PAYS_SQL = """
-        SELECT Country.name AS countryName, SUM(population) AS populationTotale 
-        FROM Country 
-        INNER JOIN City ON country_id = Country.id 
+    String POPULATION_PAR_PAYS_SQL = """
+        SELECT Country.name AS countryName, SUM(population) AS populationTotale
+        FROM Country
+        INNER JOIN City ON country_id = Country.id
         GROUP BY countryName
         """;
     @Query(value = POPULATION_PAR_PAYS_SQL, nativeQuery = true)

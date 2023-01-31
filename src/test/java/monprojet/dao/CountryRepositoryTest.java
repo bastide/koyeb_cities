@@ -81,4 +81,12 @@ public class CountryRepositoryTest {
         resultat.forEach(r -> log.info("Pays : {}  - Population totale : {}", r.getCountryName() , r.getPopulationTotale()));
     }
 
+    @Test
+    @Sql("test-data.sql") // Contient un pays sans ville
+    void renvoieNullSiPasDeVille() {
+        log.info("On vérifie que la population d'un pays sans ville est nulle");
+        assertNull(countryDAO.populationDuPaysJPQL(4),
+            "La requête renvoie null si le pays n'a pas de ville");
+    }
+
 }
