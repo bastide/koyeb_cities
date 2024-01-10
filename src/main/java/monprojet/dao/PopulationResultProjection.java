@@ -1,12 +1,12 @@
-package monprojet.dto;
+package monprojet.dao;
 
 /**
- * Un "DTO" (Data Transfer Object) pour représenter 
+ * Une "projection"" pour représenter 
  * le résultat d'une requête SQL.
  * Cette interface sera "automatiquement" implémentée par Spring.
  * @see monprojet.dao.CountryRepository
  */
-public interface PopulationResult {
+public interface PopulationResultProjection {
     String getCountryName();
     Integer getPopulationTotale();
 }

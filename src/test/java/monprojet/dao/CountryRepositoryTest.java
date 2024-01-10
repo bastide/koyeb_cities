@@ -9,14 +9,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
-import monprojet.dto.PopulationResult;
 import monprojet.entity.*;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.jdbc.Sql;
 
 @Log4j2 // Génère le 'logger' pour afficher les messages de trace
 @DataJpaTest
-public class CountryRepositoryTest {
+class CountryRepositoryTest {
 
     @Autowired
     private CountryRepository countryDAO;
@@ -68,7 +67,7 @@ public class CountryRepositoryTest {
     @Test
     void calculPopulationTotaleJPQL() {
         log.info("On calcule la population pour chaque pays (JPQL)");
-        List<PopulationResult> resultat = countryDAO.populationParPaysJPQL();
+        List<PopulationResultProjection> resultat = countryDAO.populationParPaysJPQL();
         assertEquals(countryDAO.count(), resultat.size(), "On doit avoir un résultat par pays");
         resultat.forEach(r -> log.info("Pays : {}  - Population totale : {}", r.getCountryName() , r.getPopulationTotale()));
     }
@@ -76,7 +75,7 @@ public class CountryRepositoryTest {
     @Test
     void calculPopulationTotaleSQL() {
         log.info("On calcule la population pour chaque pays (SQL)");
-        List<PopulationResult> resultat = countryDAO.populationParPaysSQL();
+        List<PopulationResultProjection> resultat = countryDAO.populationParPaysSQL();
         assertEquals(countryDAO.count(), resultat.size(), "On doit avoir un résultat par pays");
         resultat.forEach(r -> log.info("Pays : {}  - Population totale : {}", r.getCountryName() , r.getPopulationTotale()));
     }

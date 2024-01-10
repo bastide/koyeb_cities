@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import monprojet.dto.PopulationResult;
 import monprojet.entity.City;
 import monprojet.entity.Country;
 
@@ -47,7 +46,7 @@ public interface CountryRepository extends JpaRepository<Country, Integer> {
         FROM City c
         GROUP BY countryName
         """)
-    List<PopulationResult> populationParPaysJPQL();
+    List<PopulationResultProjection> populationParPaysJPQL();
 
     // SQL : formulée sur le modèle logique de données, il faut expliciter la jointure
     String POPULATION_PAR_PAYS_SQL = """
@@ -57,6 +56,6 @@ public interface CountryRepository extends JpaRepository<Country, Integer> {
         GROUP BY countryName
         """;
     @Query(value = POPULATION_PAR_PAYS_SQL, nativeQuery = true)
-    List<PopulationResult> populationParPaysSQL();
+    List<PopulationResultProjection> populationParPaysSQL();
 
 }

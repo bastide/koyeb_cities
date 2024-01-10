@@ -9,6 +9,11 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
+/**     
+ * Configuration de l'API REST
+ * Expose les IDs des entités dans l'API REST. Par défaut, Spring Data REST ne renvoie pas les identifiants des entités dans les réponses.
+ * Autorise les requêtes CORS. Par défaut, Spring Data REST ne permet pas les requêtes CORS.
+ */
 @Component
 public class SpringDataRestConfig
         implements RepositoryRestConfigurer {
