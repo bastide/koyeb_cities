@@ -13,7 +13,7 @@ import monprojet.entity.Country;
 
 @Log4j2 // Génère le 'logger' pour afficher les messages de trace
 @DataJpaTest
-public class CityRepositoryTest {
+class CityRepositoryTest {
 
     @Autowired
     private CountryRepository countryDAO;

@@ -6,6 +6,7 @@ INSERT INTO Country(id, code, name) VALUES
 -- On peut fixer les clés auto-générées, mais il faut ensuite
 -- réinitialiser le compteur de clé auto-générée
 -- Attention : la syntaxe est différente selon le SGBD utilisé
+-- Ici la syntaxe pour le SGBD H2
 ALTER TABLE Country ALTER COLUMN id RESTART WITH 4;
 
 -- On peut utiliser des sous-requêtes pour récupérer

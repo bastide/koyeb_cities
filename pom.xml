@@ -65,10 +65,16 @@
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 		<dependency>
-			<!-- Driver JDBC H2 -->
+			<!-- Driver JDBC H2 pour le développement -->
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			 <!--PostgreSQL pour le déploiement -->
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.7.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
